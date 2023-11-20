@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/auth/static/index.css"/>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Web Application</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+</head>
+<!-- Introduce JSSDK into the html document -->
+<!-- The JS file address will change after version upgrade. To add APIs or other features, please refer to the JSSDK link in the file again to keep the JSSDK version up-to-date. -->
+<script type="text/javascript"
+src="https://lf1-cdn-tos.bytegoofy.com/goofy/lark/op/h5-js-sdk-1.5.16.js">
+</script>
+<!-- Add VConsole to the page to facilitate debugging-->
+<script src="https://unpkg.com/vconsole/dist/vconsole.min.js"></script>
+<script>
+// VConsole will be exported to `window.VConsole` by default.
+var vConsole = new window.VConsole();
+</script>
+<body>
+<div>
+    <div class="img">
+        <div
+                id="img_div"
+                class="img_div"
+        >
+        </div>
+        <span
+                class="hello_text"
+        >Hello</span
+        >
+        <div
+                id="hello_text_name"
+                class="hello_text_name"
+        ></div>
+        <div
+                id="hello_text_welcome"
+                class="hello_text_welcome"
+        >
+        </div>
+    </div>
+    <div class="icon"><img src="/auth/static/svg/icon.svg"/></div>
+</div>
+<!-- Introduce apiAuth() (auto-login process function) and showUser(res) (user information display function) in the demo into the html document -->
+<script src="/auth/static/index.js"></script>
+<!-- Determine whether to implement the auto-login process or directly display user information using login_info sent from the server. -->
+<script>
+    const login_info = '{{ login_info }}';
+    console.log("login info: ", login_info);
+    if (login_info == "alreadyLogin") {
+        const user_info = JSON.parse('{{ user_info | tojson | safe }}');
+        console.log("user: ", user_info.name);
+        $('document').ready(showUser(user_info))
+    } else {
+        $('document').ready(apiAuth())
+    }
+</script>
+</body>
+</html>
